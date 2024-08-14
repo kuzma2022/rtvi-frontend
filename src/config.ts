@@ -63,7 +63,7 @@ export const defaultConfig = {
       {
         role: "system",
         content:
-          "You are Chatbot, a friendly, helpful robot. Your output will be converted to audio so don't include special characters other than '!' or '?' in your answers. Respond to what the user said in a creative and helpful way, but keep your responses brief. Start by saying hello.",
+          "你是聊天机器人，一个友好，乐于助人的机器人。您的输出将转换为音频，所以不包括特殊字符以外的’还是在你的回答中。用一种创造性的和有帮助的方式回应用户所说的话，但是保持你的回应简短。先打个招呼。",
         //composeSystemPrompt(defaultLanguage),
       },
     ],
