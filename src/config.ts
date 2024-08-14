@@ -31,7 +31,7 @@ export type LLMModel = {
 };
 
 export const ttsVoices: Voice[] = [
-  { label: "魅力女友", id: "zh_female_meilinvyou_moon_bigtts" },
+  { label: "柔美女友", id: "zh_female_sajiaonvyou_moon_bigtts" },
   { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
   { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
   { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
