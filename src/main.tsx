@@ -22,7 +22,7 @@ const voiceClient = new VoiceClient({
 });
 
 export const Layout = () => {
-  const [showSplash, setShowSplash] = useState<boolean>(false);
+  const [showSplash, setShowSplash] = useState<boolean>(true);
 
   useEffect(() => {
     const cacheVAD = async () => {

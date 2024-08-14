@@ -31,10 +31,10 @@ export type LLMModel = {
 };
 
 export const ttsVoices: Voice[] = [
-  { label: "Default", id: "79a125e8-cd45-4c13-8a67-188112f4dd22" },
-  { label: "California Girl", id: "b7d50908-b17c-442d-ad8d-810c63997ed9" },
-  { label: "Friendly Reading Man", id: "69267136-1bdc-412f-ad78-0caad210fb40" },
-  { label: "Kentucky Man", id: "726d5ae5-055f-4c3d-8355-d9677de68937" },
+  { label: "魅力女友", id: "zh_female_meilinvyou_moon_bigtts" },
+  { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
+  { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
+  { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
 ];
 
 export const languages: Language[] = [
