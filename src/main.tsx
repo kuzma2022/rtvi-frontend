@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { VoiceClient } from "realtime-ai";
 import { VoiceClientAudio, VoiceClientProvider } from "realtime-ai-react";
@@ -8,7 +8,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import App from "./App";
 import { defaultConfig } from "./config";
 import { Splash } from "./Splash";
-import { VAD } from "web-vad";
+
 import "./global.css"; // Note: Core app layout can be found here
 
 // Show warning on Firefox
@@ -23,13 +23,6 @@ const voiceClient = new VoiceClient({
 
 export const Layout = () => {
   const [showSplash, setShowSplash] = useState<boolean>(true);
-
-  useEffect(() => {
-    const cacheVAD = async () => {
-      await VAD.precacheModels("silero_vad.onnx");
-    };
-    cacheVAD();
-  }, []);
 
   if (showSplash) {
     return <Splash handleReady={() => setShowSplash(false)} />;

@@ -31,10 +31,14 @@ export type LLMModel = {
 };
 
 export const ttsVoices: Voice[] = [
-  { label: "柔美女友", id: "zh_female_sajiaonvyou_moon_bigtts" },
-  { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
-  { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
-  { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
+  { label: "晓晓", id: "zh-CN-XiaoxiaoNeural" },
+  { label: "晓艺", id: "zh-CN-XiaoyiNeural" },
+  { label: "晓晨", id: "zh-CN-XiaochenNeural" },
+  { label: "云溪", id: "zh-CN-YunxiNeural" },
+//  { label: "柔美女友", id: "zh_female_sajiaonvyou_moon_bigtts" },
+//  { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
+//  { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
+//  { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
 ];
 
 export const languages: Language[] = [
@@ -63,7 +67,7 @@ export const defaultConfig = {
       {
         role: "system",
         content:
-          "你是聊天机器人，一个友好，乐于助人的机器人。您的输出将转换为音频，所以不包括特殊字符以外的’还是在你的回答中。用一种创造性的和有帮助的方式回应用户所说的话，但是保持你的回应简短。先打个招呼。",
+          "你是聊天机器人,一个友好,乐于助人的机器人.您的输出将转换为音频,所以不包括特殊字符以外的还是在你的回答中.用一种创造性的和有帮助的方式回应用户所说的话,但是保持你的回应简短，回复的内容中文字用中文，标点符号请务必用英文.先打个招呼.",
         //composeSystemPrompt(defaultLanguage),
       },
     ],
