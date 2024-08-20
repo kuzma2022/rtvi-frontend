@@ -38,6 +38,7 @@ export type TTSModel = {
 
 const allVoices: { [key: string]: Voice[] } = {
   azure: [
+    { label: "晓晓multi", id: "zh-CN-XiaoxiaoMultilingualNeural" },
     { label: "晓晓", id: "zh-CN-XiaoxiaoNeural" },
     { label: "晓艺", id: "zh-CN-XiaoyiNeural" },
     { label: "晓晨", id: "zh-CN-XiaochenNeural" },
