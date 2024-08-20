@@ -83,6 +83,8 @@ export const languages: Language[] = [
 ];
 
 export const llmModels: LLMModel[] = [
+  { label: "llama3.1", id: "llama3.1:8b" },
+  { label: "llama3", id: "llama3" },
   { label: "gpt-4o", id: "gpt-4o" },
 ];
 
