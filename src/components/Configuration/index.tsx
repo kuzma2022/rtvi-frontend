@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { VoiceClientConfigOptions } from "realtime-ai";
 import { useVoiceClient } from "realtime-ai-react";
 
-import { Voice } from "@/config";
+import { getTTSVoices, TTSModel, ttsModels, Voice , updateTTSConfig, defaultConfig } from "@/config";
 
 import ModelSelect from "./ModelSelect";
 import VoiceSelect from "./VoiceSelect";
+import TTSModelSelect from "./TTSModelSelect";
 
 const Configuration: React.FC<{ showAllOptions: boolean }> = ({
   showAllOptions = false,
 }) => {
   const voiceClient = useVoiceClient()!;
+  const [selectedTTSModel, setSelectedTTSModel] = useState<string>(ttsModels[0].id);
 
   const updateConfig = (config: VoiceClientConfigOptions) => {
     const updateOpts =
       voiceClient.state === "ready"
         ? { sendPartial: true }
         : { useDeepMerge: true };
+    console.log("Updating config with:", config);
 
     voiceClient.updateConfig(config, updateOpts);
   };
@@ -50,11 +53,22 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
     }
   };
 
+  const handleTTSModelChange = (model: TTSModel) => {
+    setSelectedTTSModel(model.id);
+    updateTTSConfig(model.id)
+    const TTSVoices = getTTSVoices(model.id)
+    updateConfig({
+      tts: { model: model.id, voice: TTSVoices.length > 0 ? TTSVoices[0].id : "", },
+    });
+  };
+
   return (
     <div className="flex flex-col gap-3">
-      <ModelSelect onSelect={(model) => handleModelChange(model)} />
+      <ModelSelect onSelect={handleModelChange} />
+      {!showAllOptions && 
+      <TTSModelSelect onSelect={handleTTSModelChange} />}
       {showAllOptions && (
-        <VoiceSelect onSelect={(voice: Voice) => handleVoiceChange(voice)} />
+        <VoiceSelect ttsModelId={defaultConfig.tts.model} onSelect={handleVoiceChange} />
       )}
     </div>
   );

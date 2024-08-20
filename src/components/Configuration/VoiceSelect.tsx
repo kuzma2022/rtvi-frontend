@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
 
-import { ttsVoices, Voice } from "../../config";
+import { Voice, getTTSVoices } from "@/config";
 import { Field } from "../ui/field";
 import { Select } from "../ui/select";
 
 type VoiceSelectProps = {
+  ttsModelId: string;
   onSelect: (voice: Voice) => void;
 };
 
-const VoiceSelect: React.FC<VoiceSelectProps> = ({ onSelect }) => {
+const VoiceSelect: React.FC<VoiceSelectProps> = ({ ttsModelId, onSelect }) => {
+  const [voices, setVoices] = useState<Voice[]>([]);
+
+  useEffect(() => {
+    setVoices(getTTSVoices(ttsModelId));
+  }, [ttsModelId]);
+
   return (
     <Field label="Voice:">
       <Select
-        onChange={(e) => onSelect(ttsVoices[e.target.selectedIndex])}
+        onChange={(e) => onSelect(voices[e.target.selectedIndex])}
         icon={<MessageCircle size={24} />}
       >
-        {ttsVoices.map((l: Voice) => (
-          <option key={l.id} value={l.id}>
-            {l.label}
+        {voices.map((voice: Voice) => (
+          <option key={voice.id} value={voice.id}>
+            {voice.label}
           </option>
         ))}
       </Select>

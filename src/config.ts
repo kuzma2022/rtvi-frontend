@@ -30,16 +30,42 @@ export type LLMModel = {
   id: string;
 };
 
-export const ttsVoices: Voice[] = [
-  { label: "晓晓", id: "zh-CN-XiaoxiaoNeural" },
-  { label: "晓艺", id: "zh-CN-XiaoyiNeural" },
-  { label: "晓晨", id: "zh-CN-XiaochenNeural" },
-  { label: "云溪", id: "zh-CN-YunxiNeural" },
-//  { label: "柔美女友", id: "zh_female_sajiaonvyou_moon_bigtts" },
-//  { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
-//  { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
-//  { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
-];
+export type TTSModel = {
+  label: string;
+  id: string;
+};
+
+
+const allVoices: { [key: string]: Voice[] } = {
+  azure: [
+    { label: "晓晓", id: "zh-CN-XiaoxiaoNeural" },
+    { label: "晓艺", id: "zh-CN-XiaoyiNeural" },
+    { label: "晓晨", id: "zh-CN-XiaochenNeural" },
+    { label: "云溪", id: "zh-CN-YunxiNeural" },
+  ],
+
+  doubao: [
+    { label: "柔美女友", id: "zh_female_sajiaonvyou_moon_bigtts" },
+    { label: "爽快思思/Skye", id: "zh_female_shuangkuaisisi_moon_bigtts" },
+    { label: "温暖阿虎/Alvin", id: "zh_male_wennuanahu_moon_bigtts" },
+    { label: "京腔侃爷/Harmony", id: "zh_male_jingqiangkanye_moon_bigtts" },
+  ],
+
+  openai:[
+    { label: "alloy", id: "alloy" },
+    { label: "echo", id: "echo" },
+    { label: "fable", id: "fable" },
+    { label: "onyx", id: "onyx" },
+    { label: "nova", id: "nova" },
+    { label: "shimmer", id: "shimmer" },
+  ]
+};
+
+
+// Function to get voices based on TTS model
+export function getTTSVoices(ttsModelId: string): Voice[] {
+  return allVoices[ttsModelId] || [];
+}
 
 export const languages: Language[] = [
   {
@@ -60,6 +86,22 @@ export const llmModels: LLMModel[] = [
   { label: "gpt-4o", id: "gpt-4o" },
 ];
 
+
+export const ttsModels: TTSModel[] = [
+  { label: "豆包", id: "doubao" },
+  { label: "微软", id: "azure" },
+  //{ label: "OpenAI", id: "openai" },
+];
+
+const defaultTTSModel = ttsModels[0].id;
+const defaultTTSVoices = getTTSVoices(defaultTTSModel);
+
+export function updateTTSConfig(ttsModelId: string) {
+  defaultConfig.tts.model = ttsModelId;
+  const voices = getTTSVoices(ttsModelId);
+  defaultConfig.tts.voice = voices.length > 0 ? voices[0].id : "";
+}
+
 export const defaultConfig = {
   llm: {
     model: llmModels[0].id,
@@ -73,6 +115,7 @@ export const defaultConfig = {
     ],
   },
   tts: {
-    voice: ttsVoices[0].id,
+    model: defaultTTSModel,
+    voice: defaultTTSVoices.length > 0 ? defaultTTSVoices[0].id : "",
   },
 };
