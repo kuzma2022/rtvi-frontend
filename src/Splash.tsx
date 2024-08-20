@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Book, Info } from "lucide-react";
 import { VAD } from "web-vad";
 
 import { Button } from "./components/ui/button";

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { VoiceClientConfigOptions } from "realtime-ai";
 import { useVoiceClient } from "realtime-ai-react";
 
-import { getTTSVoices, TTSModel, ttsModels, Voice , updateTTSConfig, defaultConfig } from "@/config";
+import { getTTSVoices, TTSModel, Voice , updateTTSConfig, defaultConfig } from "@/config";
 
 import ModelSelect from "./ModelSelect";
 import VoiceSelect from "./VoiceSelect";
@@ -12,7 +12,6 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
   showAllOptions = false,
 }) => {
   const voiceClient = useVoiceClient()!;
-  const [selectedTTSModel, setSelectedTTSModel] = useState<string>(ttsModels[0].id);
 
   const updateConfig = (config: VoiceClientConfigOptions) => {
     const updateOpts =
@@ -54,7 +53,6 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
   };
 
   const handleTTSModelChange = (model: TTSModel) => {
-    setSelectedTTSModel(model.id);
     updateTTSConfig(model.id)
     const TTSVoices = getTTSVoices(model.id)
     updateConfig({
