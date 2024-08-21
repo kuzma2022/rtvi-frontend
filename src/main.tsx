@@ -10,6 +10,7 @@ import { defaultConfig } from "./config";
 import { Splash } from "./Splash";
 
 import "./global.css"; // Note: Core app layout can be found here
+import { ConfigProvider } from "./components/Setup/ConfigContext";
 
 // Show warning on Firefox
 // @ts-expect-error - Firefox is not well support
@@ -30,16 +31,18 @@ export const Layout = () => {
 
   return (
     <VoiceClientProvider voiceClient={voiceClient}>
-      <TooltipProvider>
-        <main>
-          <Header />
-          <div id="app">
-            <App />
-          </div>
-        </main>
-        <aside id="tray" />
-        <VoiceClientAudio />
-      </TooltipProvider>
+      <ConfigProvider>
+        <TooltipProvider>
+          <main>
+            <Header />
+            <div id="app">
+              <App />
+            </div>
+          </main>
+          <aside id="tray" />
+          <VoiceClientAudio />
+        </TooltipProvider>
+    </ConfigProvider>
     </VoiceClientProvider>
   );
 };
@@ -52,6 +55,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         use Chrome.
       </div>
     )}
-    <Layout />
+    <ConfigProvider>
+      <Layout />
+    </ConfigProvider>
   </React.StrictMode>
 );

@@ -7,10 +7,13 @@ import { getTTSVoices, TTSModel, Voice , updateTTSConfig, defaultConfig } from "
 import ModelSelect from "./ModelSelect";
 import VoiceSelect from "./VoiceSelect";
 import TTSModelSelect from "./TTSModelSelect";
-
+import { useConfig } from "../Setup/ConfigContext"; 
+ 
 const Configuration: React.FC<{ showAllOptions: boolean }> = ({
   showAllOptions = false,
 }) => {
+  const { messages } = useConfig();
+
   const voiceClient = useVoiceClient()!;
 
   const updateConfig = (config: VoiceClientConfigOptions) => {
@@ -29,10 +32,9 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
     });
 
     // Prompt the LLM to speak
-    voiceClient.appendLLMContext({
-      role: "assistant",
-      content: "Ask if the user prefers the new voice you have been given.",
-    });
+    voiceClient.appendLLMContext(
+      messages.voice_change
+    );
   };
 
   const handleModelChange = (model: string) => {
@@ -44,10 +46,9 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
       voiceClient.interrupt();
 
       setTimeout(() => {
-        voiceClient.appendLLMContext({
-          role: "user",
-          content: `I just changed your model to use ${model}! Thank me for the change.`,
-        });
+        voiceClient.appendLLMContext(
+          messages.model_change
+        );
       }, 500);
     }
   };

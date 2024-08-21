@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import * as Card from "../ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import UserMicBubble from "../UserMicBubble";
-
+import { useConfig } from "../Setup/ConfigContext"; 
 import Agent from "./Agent";
 
 let stats_aggregator: StatsAggregator;
@@ -31,17 +31,16 @@ export const Session = React.memo(
     const [showStats, setShowStats] = useState(false);
     const [muted, setMuted] = useState(startAudioOff);
     const modalRef = useRef<HTMLDialogElement>(null);
-
+    const { messages } = useConfig();
     // ---- Voice Client Events
 
     // Wait for the bot to enter a ready state and trigger it to say hello
     useVoiceClientEvent(
       VoiceEvent.BotReady,
       useCallback(() => {
-        voiceClient.appendLLMContext({
-          role: "assistant",
-          content: "Greet the user",
-        });
+        voiceClient.appendLLMContext(
+          messages.bot_ready,
+        );
       }, [voiceClient])
     );
 
