@@ -65,6 +65,9 @@ const Latency: React.FC<{
       // These may be triggered by small noises such as coughs etc
       if (diff < LATENCY_MIN || diff > LATENCY_MAX) {
         startTimeRef.current = null;
+        console.log(diff);
+        console.log("Ignore any values that are obviously wrong");
+        
         return;
       }
 
@@ -85,6 +88,7 @@ const Latency: React.FC<{
       useCallback(
         (volume) => {
           if (volume > REMOTE_AUDIO_THRESHOLD && startTimeRef.current) {
+            console.log("stopTimer")
             stopTimer();
           }
         },
@@ -103,7 +107,11 @@ const Latency: React.FC<{
       VoiceEvent.BotStartedTalking,
       useCallback(() => {
         setBotTalkingState(State.SPEAKING);
-      }, [])
+        if (startTimeRef.current) {
+          console.log("stopTimer")
+          stopTimer();
+        }
+      }, [stopTimer])
     );
 
     useVoiceClientEvent(
@@ -125,20 +133,6 @@ const Latency: React.FC<{
       setVadInstance(null);
       setHasSpokenOnce(false);
     }, []);
-
-    // Start timer after user has spoken once
-    useEffect(() => {
-      if (
-        !started ||
-        !hasSpokenOnce ||
-        !vadInstance ||
-        vadInstance.state !== VADState.listening ||
-        currentState !== State.SILENT
-      ) {
-        return;
-      }
-      startTimer();
-    }, [started, vadInstance, currentState, startTimer, hasSpokenOnce]);
 
     useEffect(() => {
       if (mountedRef.current || !localMediaTrack) {
@@ -164,6 +158,10 @@ const Latency: React.FC<{
           },
           onSpeechEnd: () => {
             setCurrentState(State.SILENT);
+            //if (hasSpokenOnce) {
+              console.log("startTimer")
+              startTimer();
+            //}
           },
         });
         await vad.init();
@@ -171,11 +169,10 @@ const Latency: React.FC<{
         setVadInstance(vad);
       }
 
-      // Load VAD
       loadVad();
 
       mountedRef.current = true;
-    }, [localMediaTrack]);
+    }, [localMediaTrack, hasSpokenOnce, startTimer]);
 
     // Cleanup VAD
     useEffect(
