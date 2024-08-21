@@ -5,8 +5,8 @@ export function composeSystemPrompt(language: string) {
 }*/
 
 export const BOT_READY_TIMEOUT = 30 * 1000; // 20 seconds
-export const LATENCY_MIN = 300;
-export const LATENCY_MAX = 3000;
+export const LATENCY_MIN = 100;
+export const LATENCY_MAX = 5500;
 export const VAD_POSITIVE_SPEECH_THRESHOLD = 0.8;
 export const VAD_NEGATIVE_SPEECH_THRESHOLD = 0.8 - 0.15;
 export const VAD_MIN_SPEECH_FRAMES = 5;
@@ -84,6 +84,7 @@ export const languages: Language[] = [
 ];
 
 export const llmModels: LLMModel[] = [
+  { label: "qwen2", id: "qwen2" },
   { label: "llama3.1", id: "llama3.1:8b" },
   { label: "llama3", id: "llama3" },
   { label: "gpt-4o", id: "gpt-4o" },
