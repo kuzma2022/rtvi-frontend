@@ -24,8 +24,8 @@ export const ConfigProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setConfig(defaultConfigs[lang]);
     setMessages(defaultMessages[lang]);
     const updateOpts ={ useDeepMerge: true };
-    voiceClient.updateConfig(defaultConfigs[lang], updateOpts);
-    console.log("Updating config with:", defaultConfigs[lang]);
+    voiceClient.updateConfig( {llm: { messages: defaultConfigs[lang].llm.messages }}, updateOpts);
+    console.log("Updating config with:", {llm: { messages: defaultConfigs[lang].llm.messages }});
   };
 
 

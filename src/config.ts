@@ -114,7 +114,7 @@ const defaultZHConfig = {
     messages: [
       {
         role: "system",
-        content: "你是语音聊天机器人,一个友好,乐于助人的机器人.你的输出将转换为音频,所以在你的回答中不要有特殊字符.请你用一种创造性的和有帮助的方式回应用户所说的话,但是保持你的回应简短，回复的内容中文字用中文，先打个招呼.",
+        content: "你是语音聊天机器人，一个友好、乐于助人的机器人。你的输出将转换为音频，所以在你的回答中不要有特殊字符。请你用一种创造性的和有帮助的方式回应用户所说的话，但是保持你的回应简短，请一定用中文回复。先打个招呼。",
         //composeSystemPrompt(defaultLanguage),
       },
     ],
@@ -131,7 +131,7 @@ const defaultENConfig = {
     messages: [
       {
         role: "system",
-        content: "You are Chatbot, a friendly, helpful robot. Your output will be converted to audio so don't include special characters other than '!' or '?' in your answers. Respond to what the user said in a creative and helpful way, but keep your responses brief. Start by saying hello."
+        content: "You are Chatbot, a friendly, helpful robot. Your output will be converted to audio. Respond to what the user said in a creative and helpful way, but keep your responses brief. Please be sure to reply in English.Start by saying hello."
         //composeSystemPrompt(defaultLanguage),
       },
     ],
